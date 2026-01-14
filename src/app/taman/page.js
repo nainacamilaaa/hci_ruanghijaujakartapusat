@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
 import ParkGrid from "@/app/components/ParkGrid";
@@ -8,7 +8,8 @@ import ParkDetailModal from "@/app/components/ParkDetailModal";
 import { parkDetails } from "@/app/data/parkDetails";
 import { parksData } from "@/app/data/parksData";
 
-export default function TamanPage() {
+// Pisahkan komponen yang menggunakan useSearchParams
+function TamanContent() {
   const searchParams = useSearchParams();
   const categoryFromURL = searchParams.get("category");
 
@@ -24,15 +25,6 @@ export default function TamanPage() {
 
   const [selectedId, setSelectedId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  
-  // ✅ loaded untuk cegah hydration error
-  const [loaded, setLoaded] = useState(false);
-
-  // 🔹 mount: trigger loaded setelah render pertama
-  useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 0);
-    return () => clearTimeout(timer);
-  }, []);
 
   const selectedPark = selectedId
     ? {
@@ -40,10 +32,6 @@ export default function TamanPage() {
         image: parksData.find((p) => p.id === selectedId)?.image,
       }
     : null;
-
-  if (!loaded) {
-    return <div className="w-full min-h-screen bg-white" />;
-  }
 
   return (
     <>
@@ -105,5 +93,21 @@ export default function TamanPage() {
         />
       )}
     </>
+  );
+}
+
+// Komponen utama dengan Suspense boundary
+export default function TamanPage() {
+  return (
+    <Suspense fallback={
+      <div className="w-full min-h-screen bg-linear-to-b from-[#E8F7EF] via-[#F5FCF9] to-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Memuat taman...</p>
+        </div>
+      </div>
+    }>
+      <TamanContent />
+    </Suspense>
   );
 }
