@@ -54,7 +54,7 @@ export default function ParkDetailModal({ park, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+    <div className="fixed inset-0 z-9999 flex items-center justify-center">
 
       {/* BACKDROP */}
       <div
@@ -74,7 +74,7 @@ export default function ParkDetailModal({ park, onClose }) {
         </button>
 
         {/* HEADER IMAGE */}
-        <div className="relative h-[320px] w-full">
+        <div className="relative h-80 w-full">
           <img
             src={park.image}
             alt={park.name}

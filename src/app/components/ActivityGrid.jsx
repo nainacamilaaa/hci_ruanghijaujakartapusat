@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import { FiMapPin } from "react-icons/fi";
 import { fetchEvents } from "@/app/services/api";
 import eventDetails from "@/app/data/eventDetails";
+import Image from "next/image";
 
 
 export default function ActivityGrid({ activeCategory }) {
@@ -60,9 +61,11 @@ export default function ActivityGrid({ activeCategory }) {
       </span>
 
       <div className="w-full h-48 overflow-hidden">
-        <img
+        <Image
           src={item.image}
           alt={item.title}
+          width={100}
+          height={100}
           className="w-full h-full object-cover"
         />
       </div>
@@ -140,9 +143,11 @@ export default function ActivityGrid({ activeCategory }) {
 
             <div className="grid md:grid-cols-2">
               <div className="w-full h-[420px]">
-                <img
+                <Image
                   src={eventDetails[selectedEventId].image}
                   alt={eventDetails[selectedEventId].title}
+                  width={100}
+                  height={100}
                   className="w-full h-full object-cover"
                 />
               </div>

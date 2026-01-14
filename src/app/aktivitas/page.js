@@ -9,22 +9,24 @@ export default function AktivitasPage() {
   const searchParams = useSearchParams();
   const categoryFromURL = searchParams.get("category");
 
-  const [activeCategory, setActiveCategory] = useState("Semua");
-  const [loaded, setLoaded] = useState(false);
-
-  // 🔥 kategori tetap
+  // 🔹 kategori tetap
   const categories = ["Semua"];
 
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (!loaded) return;
+  // ✅ lazy init activeCategory dari URL (jika valid)
+  const [activeCategory, setActiveCategory] = useState(() => {
     if (categoryFromURL && categories.includes(categoryFromURL)) {
-      setActiveCategory(categoryFromURL);
+      return categoryFromURL;
     }
-  }, [loaded, categoryFromURL]);
+    return "Semua";
+  });
+
+  const [loaded, setLoaded] = useState(false);
+
+  // 🔹 trigger loaded setelah render pertama (CSR safe)
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (!loaded) {
     return <div className="w-full min-h-screen bg-white" />;
@@ -33,22 +35,17 @@ export default function AktivitasPage() {
   return (
     <>
       {/* 🟢 HEADER */}
-      <section className="w-full bg-gradient-to-b from-[#E8F7EF] via-[#F5FCF9] to-white pt-20 pb-8">
+      <section className="w-full bg-linear-to-b from-[#E8F7EF] via-[#F5FCF9] to-white pt-20 pb-8">
         <div className="max-w-7xl mx-auto px-4">
+          <h1 className="text-4xl font-bold text-center">Event & Aktivitas</h1>
 
-          <h1 className="text-4xl font-bold text-center">
-            Event & Aktivitas
-          </h1>
-
-          
           <p className="text-center text-gray-600 mt-3 max-w-2xl mx-auto leading-relaxed">
-          Nikmati berbagai kegiatan seru setiap minggu! Mulai dari kelas yoga pagi,
-          workshop kreatif, hingga komunitas jogging yang selalu ramai.
-          <br /><br />
-          Ingin menaruh event atau aktivitas di sini? Hubungi kami di
-          <span className="font-medium"> info@ruanghijaujakarta.id</span>.
-        </p>
-
+            Nikmati berbagai kegiatan seru setiap minggu! Mulai dari kelas yoga pagi,
+            workshop kreatif, hingga komunitas jogging yang selalu ramai.
+            <br /><br />
+            Ingin menaruh event atau aktivitas di sini? Hubungi kami di
+            <span className="font-medium"> info@ruanghijaujakarta.id</span>.
+          </p>
 
           {/* CATEGORY TABS */}
           <div className="flex flex-wrap gap-3 mt-10 justify-start">
@@ -67,7 +64,6 @@ export default function AktivitasPage() {
               </button>
             ))}
           </div>
-
         </div>
       </section>
 

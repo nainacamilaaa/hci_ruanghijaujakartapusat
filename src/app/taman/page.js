@@ -12,32 +12,28 @@ export default function TamanPage() {
   const searchParams = useSearchParams();
   const categoryFromURL = searchParams.get("category");
 
-  // ✅ STATE LAMA (TIDAK DIUBAH)
-  const [activeCategory, setActiveCategory] = useState("Semua");
-  const [selectedId, setSelectedId] = useState(null);
-
-  // ➕ STATE SEARCH (TAMBAHAN)
-  const [searchTerm, setSearchTerm] = useState("");
-
-  // ✅ TAMBAHAN (ANTI HYDRATION)
-  const [loaded, setLoaded] = useState(false);
-
   const categories = ["Semua", "Taman Kota", "Hutan Kota", "Taman Tematik"];
 
-  // ✅ mount aman
+  // ✅ STATE dengan lazy init: langsung baca URL
+  const [activeCategory, setActiveCategory] = useState(() => {
+    if (categoryFromURL && categories.includes(categoryFromURL)) {
+      return categoryFromURL;
+    }
+    return "Semua";
+  });
+
+  const [selectedId, setSelectedId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  // ✅ loaded untuk cegah hydration error
+  const [loaded, setLoaded] = useState(false);
+
+  // 🔹 mount: trigger loaded setelah render pertama
   useEffect(() => {
-    setLoaded(true);
+    const timer = setTimeout(() => setLoaded(true), 0);
+    return () => clearTimeout(timer);
   }, []);
 
-  // ✅ baca category dari URL
-  useEffect(() => {
-    if (!loaded) return;
-    if (categoryFromURL && categories.includes(categoryFromURL)) {
-      setActiveCategory(categoryFromURL);
-    }
-  }, [loaded, categoryFromURL]);
-
-  // ✅ LOGIC LAMA (TIDAK DIUBAH)
   const selectedPark = selectedId
     ? {
         ...parkDetails[selectedId],
@@ -45,7 +41,6 @@ export default function TamanPage() {
       }
     : null;
 
-  // ✅ cegah hydration error
   if (!loaded) {
     return <div className="w-full min-h-screen bg-white" />;
   }
@@ -53,22 +48,17 @@ export default function TamanPage() {
   return (
     <>
       {/* HEADER */}
-      <section className="w-full bg-gradient-to-b from-[#E8F7EF] via-[#F5FCF9] to-white pt-20 pb-8">
+      <section className="w-full bg-linear-to-b from-[#E8F7EF] via-[#F5FCF9] to-white pt-20 pb-8">
         <div className="max-w-7xl mx-auto px-4">
-
           <h1 className="text-4xl font-bold text-center">
             Taman di Jakarta Pusat
           </h1>
-
           <p className="text-center text-gray-600 mt-3 max-w-2xl mx-auto leading-relaxed">
             Jelajahi ruang hijau terbaik di Jakarta Pusat, mulai dari taman kota,
             hutan urban, hingga taman tematik untuk rekreasi.
           </p>
 
-          {/* CATEGORY + SEARCH */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-10">
-
-            {/* CATEGORY TABS */}
             <div className="flex flex-wrap gap-3">
               {categories.map((cat) => (
                 <button
@@ -86,13 +76,12 @@ export default function TamanPage() {
               ))}
             </div>
 
-            {/* SEARCH UI (UI TIDAK DIUBAH, HANYA DISAMBUNGKAN) */}
             <div className="w-full md:w-64">
               <input
                 type="text"
                 placeholder="Cari taman..."
-                value={searchTerm}                 // ➕
-                onChange={(e) => setSearchTerm(e.target.value)} // ➕
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-full text-sm 
                            focus:ring-2 focus:ring-green-500 focus:outline-none"
               />
@@ -101,16 +90,14 @@ export default function TamanPage() {
         </div>
       </section>
 
-      {/* GRID */}
       <div className="max-w-7xl mx-auto px-4 pb-12">
         <ParkGrid
           activeCategory={activeCategory}
-          searchTerm={searchTerm}   // ➕
+          searchTerm={searchTerm}
           onSelect={(id) => setSelectedId(id)}
         />
       </div>
 
-      {/* MODAL */}
       {selectedPark && (
         <ParkDetailModal
           park={selectedPark}
