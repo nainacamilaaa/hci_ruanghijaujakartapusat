@@ -1,6 +1,5 @@
 import HeroSection from "@/app/components/HeroSection";
-import PopularParks from "@/app/components/PopularParks";
-import ParkCategories from "@/app/components/ParkCategories";
+import ClientHome from "@/app/components/ClientHome";
 import Facilities from "@/app/components/Facilities";
 
 export default function Home() {
@@ -11,8 +10,7 @@ export default function Home() {
 
       {/* MAIN CONTENT */}
       <main className="w-full bg-white">
-        <PopularParks />
-        <ParkCategories />
+        <ClientHome />
         <Facilities />
       </main>
     </>

@@ -13,9 +13,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="id">
+    <html lang="id" suppressHydrationWarning>
       <body
         className={`${inter.className} antialiased bg-white overflow-x-hidden`}
+        suppressHydrationWarning
       >
         <ReviewProvider>
           {/* NAVBAR */}

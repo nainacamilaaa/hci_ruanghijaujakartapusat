@@ -89,7 +89,7 @@ export default function ParkDetailModal({ park, onClose }) {
           <div className="absolute bottom-6 right-6">
             <div className="flex items-center gap-1 text-yellow-300 drop-shadow-lg">
               {[...Array(Math.round(currentAverageRating))].map((_, i) => (
-                <FaStar key={i} size={20} />
+                <FaStar key={`header-rating-${park.id}-${i}`} size={20} />
               ))}
             </div>
           </div>
@@ -106,11 +106,11 @@ export default function ParkDetailModal({ park, onClose }) {
             {/* FASILITAS */}
             <h3 className="font-semibold mb-3">Fasilitas Taman</h3>
             <div className="flex gap-3 mb-8">
-              <Facility icon={<FaRunning />} />
-              <Facility icon={<FaChild />} />
-              <Facility icon={<FaWifi />} />
-              <Facility icon={<FaRestroom />} />
-              <Facility icon={<FaWheelchair />} />
+              <Facility key="facility-running" icon={<FaRunning />} />
+              <Facility key="facility-child" icon={<FaChild />} />
+              <Facility key="facility-wifi" icon={<FaWifi />} />
+              <Facility key="facility-restroom" icon={<FaRestroom />} />
+              <Facility key="facility-wheelchair" icon={<FaWheelchair />} />
             </div>
 
             {/* ULASAN */}
@@ -136,7 +136,7 @@ export default function ParkDetailModal({ park, onClose }) {
                   <div className="flex gap-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
-                        key={star}
+                        key={`rating-button-${star}`}
                         type="button"
                         onClick={() => setFormData({ ...formData, rating: star })}
                         className={`text-2xl ${star <= formData.rating ? "text-yellow-400" : "text-gray-300"}`}
@@ -161,9 +161,10 @@ export default function ParkDetailModal({ park, onClose }) {
 
                 <button
                   type="submit"
-                  className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium"
+                  disabled={isSubmitting}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Kirim Ulasan
+                  {isSubmitting ? "Mengirim..." : "Kirim Ulasan"}
                 </button>
               </form>
 
@@ -178,7 +179,7 @@ export default function ParkDetailModal({ park, onClose }) {
                         <p className="font-semibold text-sm">{review.name}</p>
                         <div className="flex text-yellow-400">
                           {[...Array(review.rating)].map((_, i) => (
-                            <FaStar key={i} size={14} />
+                            <FaStar key={`review-${review.id}-star-${i}`} size={14} />
                           ))}
                         </div>
                       </div>
