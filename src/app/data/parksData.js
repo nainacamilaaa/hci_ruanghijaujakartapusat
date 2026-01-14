@@ -49,14 +49,6 @@ export const parksData = [
   },
   {
     id: 7,
-    name: "Taman Fatahillah",
-    category: "Taman Tematik",
-    bio: "Taman kolonial Kota Tua, dikelilingi museum dan kafe heritage; ramai street performer saat weekend.",
-    location: "Sawah Besar",
-    image: "/icon/tamanfatahillah.svg"
-  },
-  {
-    id: 8,
     name: "Taman Situ Lembang",
     category: "Taman Kota",
     bio: "Taman danau tenang dengan jogging ringan, spot memancing, dan suasana sejuk untuk quality time.",
@@ -64,15 +56,7 @@ export const parksData = [
     image: "/icon/tamansitulembang.svg"
   },
   {
-    id: 9,
-    name: "Hutan Kota Kemayoran",
-    category: "Hutan Kota",
-    bio: "Hutan kota luas dengan trek hiking, burung endemik, dan zona edukasi lingkungan.",
-    location: "Kemayoran",
-    image: "/icon/hutankotakemayoran.svg"
-  },
-  {
-    id: 10,
+    id: 8,
     name: "Taman Tugu Tani",
     category: "Taman Kota",
     bio: "Taman kecil yang mengelilingi ikon Tugu Tani; spot singgah cepat dengan lanskap urban dan pepohonan.",
@@ -80,7 +64,7 @@ export const parksData = [
     image: "/icon/tamantugutani.svg"
   },
   {
-    id: 11,
+    id: 9,
     name: "Taman Sukabumi",
     category: "Taman Kota",
     bio: "Taman rindang dengan jalur pedestrian rapi dan ruang duduk teduh; nyaman untuk istirahat dan jalan santai.",
@@ -88,7 +72,7 @@ export const parksData = [
     image: "/icon/tamansukabumi.svg"
   },
   {
-    id: 12,
+    id: 10,
     name: "FO Slipi Skate Park",
     category: "Taman Tematik",
     bio: "Skatepark profesional dengan arena skate & BMX, mural street art, dan kompetisi rutin anak muda.",
@@ -96,7 +80,7 @@ export const parksData = [
     image: "/icon/foslipiskatepark.svg"
   },
   {
-    id: 13,
+    id: 11,
     name: "Taman Pramuka",
     category: "Taman Kota",
     bio: "Taman lapang yang sering dipakai kegiatan pramuka, olahraga ringan, dan ruang hijau untuk warga sekitar.",
@@ -104,7 +88,7 @@ export const parksData = [
     image: "/icon/tamanpramuka.svg"
   },
   {
-    id: 14,
+    id: 12,
     name: "Taman Diponegoro",
     category: "Taman Kota",
     bio: "Taman linear penuh bunga warna-warni dan jalur pejalan kaki rapi; favorit untuk jalan sore.",
@@ -112,7 +96,7 @@ export const parksData = [
     image: "/icon/tamandiponegoro.svg"
   },
   {
-    id: 15,
+    id: 13,
     name: "Taman Kwista",
     category: "Taman Kota",
     bio: "Taman mungil modern dengan rumput rapi dan spot foto estetik; cocok untuk istirahat cepat.",
@@ -120,7 +104,7 @@ export const parksData = [
     image: "/icon/tamankwista.svg"
   },
   {
-    id: 16,
+    id: 14,
     name: "Taman Prasasti",
     category: "Taman Tematik",
     bio: "Taman bersejarah dengan prasasti kolonial dan patung klasik; populer untuk tur sejarah dan foto vintage.",
@@ -128,7 +112,7 @@ export const parksData = [
     image: "/icon/tamanprasasti.svg"
   },
   {
-    id: 17,
+    id: 15,
     name: "Taman Sumenep",
     category: "Taman Kota",
     bio: "Taman sejuk dengan banyak pepohonan besar dan area duduk; terkenal sebagai tempat istirahat pekerja kantor.",
@@ -136,7 +120,7 @@ export const parksData = [
     image: "/icon/tamansumenep.svg"
   },
   {
-    id: 18,
+    id: 16,
     name: "Taman Proklamasi",
     category: "Taman Tematik",
     bio: "Taman bersejarah dengan Monumen Proklamasi dan ruang refleksi; populer untuk edukasi dan foto kenangan.",
@@ -144,7 +128,7 @@ export const parksData = [
     image: "/icon/tamanproklamasi.svg"
   },
   {
-    id: 19,
+    id: 17,
     name: "Taman Dr. Wahidin",
     category: "Taman Kota",
     bio: "Taman hijau yang tenang dengan pepohonan teduh dan jalur pedestrian pendek; cocok untuk duduk santai dan jalan pagi.",
@@ -152,7 +136,7 @@ export const parksData = [
     image: "/icon/tamandrwahidin.svg"
   },
   {
-    id: 20,
+    id: 18,
     name: "Taman Link In Park",
     category: "Taman Tematik",
     bio: "Skatepark lingkungan dengan ramp dasar, rail, dan area terbuka untuk latihan skateboard maupun BMX. Cocok untuk kalangan muda mudi.",
@@ -160,13 +144,13 @@ export const parksData = [
     image: "/icon/tamanlinkinpark.svg"
   },
   {
-    id: 21,
+    id: 19,
     name: "Taman Panarukan",
     category: "Taman Kota",
     bio: "Taman lingkungan yang rindang dengan jalur pedestrian pendek dan area duduk sederhana; cocok untuk singgah cepat dan istirahat warga sekitar.",
     location: "Menteng",
     image: "/icon/tamanpanarukan.svg"
-  }
+  },
 ];
 
 export default parksData;

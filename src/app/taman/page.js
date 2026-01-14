@@ -16,6 +16,9 @@ export default function TamanPage() {
   const [activeCategory, setActiveCategory] = useState("Semua");
   const [selectedId, setSelectedId] = useState(null);
 
+  // ➕ STATE SEARCH (TAMBAHAN)
+  const [searchTerm, setSearchTerm] = useState("");
+
   // ✅ TAMBAHAN (ANTI HYDRATION)
   const [loaded, setLoaded] = useState(false);
 
@@ -26,7 +29,7 @@ export default function TamanPage() {
     setLoaded(true);
   }, []);
 
-  // ✅ baca category dari URL (DITAMBAHKAN)
+  // ✅ baca category dari URL
   useEffect(() => {
     if (!loaded) return;
     if (categoryFromURL && categories.includes(categoryFromURL)) {
@@ -49,7 +52,7 @@ export default function TamanPage() {
 
   return (
     <>
-      {/* ✅ HEADER + FILTER (LAMA, UTUH) */}
+      {/* HEADER */}
       <section className="w-full bg-gradient-to-b from-[#E8F7EF] via-[#F5FCF9] to-white pt-20 pb-8">
         <div className="max-w-7xl mx-auto px-4">
 
@@ -83,11 +86,13 @@ export default function TamanPage() {
               ))}
             </div>
 
-            {/* SEARCH UI */}
+            {/* SEARCH UI (UI TIDAK DIUBAH, HANYA DISAMBUNGKAN) */}
             <div className="w-full md:w-64">
               <input
                 type="text"
                 placeholder="Cari taman..."
+                value={searchTerm}                 // ➕
+                onChange={(e) => setSearchTerm(e.target.value)} // ➕
                 className="w-full px-4 py-2 border border-gray-300 rounded-full text-sm 
                            focus:ring-2 focus:ring-green-500 focus:outline-none"
               />
@@ -96,15 +101,16 @@ export default function TamanPage() {
         </div>
       </section>
 
-      {/* ✅ GRID (LAMA, TIDAK DISENTUH) */}
+      {/* GRID */}
       <div className="max-w-7xl mx-auto px-4 pb-12">
         <ParkGrid
           activeCategory={activeCategory}
+          searchTerm={searchTerm}   // ➕
           onSelect={(id) => setSelectedId(id)}
         />
       </div>
 
-      {/* ✅ MODAL (LAMA, TIDAK DISENTUH) */}
+      {/* MODAL */}
       {selectedPark && (
         <ParkDetailModal
           park={selectedPark}

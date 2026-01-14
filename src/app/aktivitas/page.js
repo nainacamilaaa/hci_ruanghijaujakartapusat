@@ -13,7 +13,7 @@ export default function AktivitasPage() {
   const [loaded, setLoaded] = useState(false);
 
   // 🔥 kategori tetap
-  const categories = ["Semua", "Terbaru", "Terlama"];
+  const categories = ["Semua"];
 
   useEffect(() => {
     setLoaded(true);
@@ -40,12 +40,15 @@ export default function AktivitasPage() {
             Event & Aktivitas
           </h1>
 
+          
           <p className="text-center text-gray-600 mt-3 max-w-2xl mx-auto leading-relaxed">
-            Nikmati berbagai kegiatan seru setiap minggu! Mulai dari kelas yoga pagi,
-            workshop kreatif, hingga komunitas jogging yang selalu ramai.
-            Taman-taman di Jakarta Pusat menjadi ruang hidup untuk berkumpul,
-            bergerak, dan berbagi energi positif.
-          </p>
+          Nikmati berbagai kegiatan seru setiap minggu! Mulai dari kelas yoga pagi,
+          workshop kreatif, hingga komunitas jogging yang selalu ramai.
+          <br /><br />
+          Ingin menaruh event atau aktivitas di sini? Hubungi kami di
+          <span className="font-medium"> info@ruanghijaujakarta.id</span>.
+        </p>
+
 
           {/* CATEGORY TABS */}
           <div className="flex flex-wrap gap-3 mt-10 justify-start">

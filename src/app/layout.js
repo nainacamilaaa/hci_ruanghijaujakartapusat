@@ -1,7 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/components/Navbar";
-import Footer from "@/app/components/Footer"; // <--- TAMBAH INI
+import Footer from "@/app/components/Footer";
+import { ReviewProvider } from "@/app/context/ReviewContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,16 +17,18 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} antialiased bg-white overflow-x-hidden`}
       >
-        {/* NAVBAR */}
-        <Navbar />
+        <ReviewProvider>
+          {/* NAVBAR */}
+          <Navbar />
 
-        {/* PAGE CONTENT */}
-        <div className="pt-20">
-          {children}
-        </div>
+          {/* PAGE CONTENT */}
+          <div className="pt-20">
+            {children}
+          </div>
 
-        {/* FOOTER */}
-        <Footer />  
+          {/* FOOTER */}
+          <Footer />
+        </ReviewProvider>
       </body>
     </html>
   );

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { FaSearch } from "react-icons/fa";
 
 export default function HeroSection() {
   return (
@@ -35,21 +34,6 @@ export default function HeroSection() {
               Jelajahi taman-taman indah, nikmati udara segar, dan rasakan
               ketenangan di tengah hiruk pikuk ibu kota.
             </p>
-
-            <button
-              className="
-                mt-8 inline-flex items-center gap-2
-                bg-green-500 hover:bg-green-600
-                text-white
-                px-6 py-3
-                rounded-full
-                text-sm font-semibold
-                transition
-              "
-            >
-              <FaSearch className="text-sm" />
-              Cari Taman
-            </button>
           </div>
 
         </div>

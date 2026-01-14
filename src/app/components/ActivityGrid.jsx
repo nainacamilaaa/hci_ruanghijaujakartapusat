@@ -1,14 +1,28 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { FiMapPin } from "react-icons/fi";
-import eventData from "@/app/data/eventData";
+import { fetchEvents } from "@/app/services/api";
 import eventDetails from "@/app/data/eventDetails";
+
 
 export default function ActivityGrid({ activeCategory }) {
   const itemsPerPage = 12;
   const [page, setPage] = useState(0);
   const [selectedEventId, setSelectedEventId] = useState(null);
+  const [eventData, setEventData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch events dari API
+  useEffect(() => {
+    const loadEvents = async () => {
+      setLoading(true);
+      const data = await fetchEvents();
+      setEventData(data);
+      setLoading(false);
+    };
+    loadEvents();
+  }, []);
 
   // ======================
   // 🔥 FILTER + SORT
@@ -23,7 +37,7 @@ export default function ActivityGrid({ activeCategory }) {
     }
 
     return data;
-  }, [activeCategory]);
+  }, [activeCategory, eventData]);
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
@@ -32,13 +46,17 @@ export default function ActivityGrid({ activeCategory }) {
     page * itemsPerPage + itemsPerPage
   );
 
+  if (loading) {
+    return <div className="text-center text-gray-500">Loading events...</div>;
+  }
+
   // ======================
   // 🔥 EVENT CARD (UI TIDAK DIUBAH)
   // ======================
   const EventCard = ({ item }) => (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition relative">
       <span className="absolute top-3 right-3 bg-green-700 text-white text-xs font-semibold px-3 py-1 rounded-full z-10 shadow">
-        {item.date}
+        {item.displayDate || item.date}
       </span>
 
       <div className="w-full h-48 overflow-hidden">

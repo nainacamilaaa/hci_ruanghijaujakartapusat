@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { MapPin } from "lucide-react";
+import { FaStar } from "react-icons/fa";
 
-export default function ParkCard({ park, onSelect }) {
+export default function ParkCard({ park, onSelect, rating = 0 }) {
   const categoryColors = {
     "Taman Kota": "bg-[#E8F1FF] text-[#2476FF]",
     "Hutan Kota": "bg-[#E9F7EE] text-[#2E8B57]",
@@ -20,6 +21,15 @@ export default function ParkCard({ park, onSelect }) {
           {park.category}
         </span>
 
+        {/* RATING DI KANAN ATAS */}
+        {rating > 0 && (
+          <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-yellow-300/90 px-2 py-1 rounded-full">
+            {[...Array(Math.round(rating))].map((_, i) => (
+              <FaStar key={i} size={12} className="text-yellow-600" />
+            ))}
+          </div>
+        )}
+
         <Image
           src={park.image}
           alt={park.name}
@@ -29,7 +39,13 @@ export default function ParkCard({ park, onSelect }) {
       </div>
 
       <div className="p-5">
-        <h3 className="text-[18px] font-semibold mb-2">{park.name}</h3>
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-[18px] font-semibold">{park.name}</h3>
+          <div className="flex items-center gap-1">
+            <FaStar className="text-yellow-400" size={16} />
+            <span className="text-sm font-semibold text-gray-700">{rating.toFixed(1)}</span>
+          </div>
+        </div>
 
         <p className="text-sm text-gray-600 mb-4 text-justify">
           {park.bio}

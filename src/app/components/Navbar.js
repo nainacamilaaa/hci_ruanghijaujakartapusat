@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   return (
@@ -31,7 +33,7 @@ const Navbar = () => {
 
           {/* Menu */}
           <div className="hidden md:flex items-center gap-12">
-            <NavItem href="/" label="Beranda" color="#15803D" />
+            <NavItem href="/" label="Beranda" color="#374151" />
             <NavItem href="/taman" label="Taman" color="#374151" />
             <NavItem href="/aktivitas" label="Aktivitas" color="#374151" />
             <NavItem href="/tentang" label="Tentang" color="#374151" />
@@ -43,14 +45,22 @@ const Navbar = () => {
   );
 };
 
-const NavItem = ({ href, label, color }) => (
-  <Link
-    href={href}
-    className="text-sm font-medium transition-colors duration-200"
-    style={{ color }}
-  >
-    {label}
-  </Link>
-);
+const NavItem = ({ href, label, color }) => {
+  const pathname = usePathname();
+  const activeColor = "#15803D";
+  const inactiveColor = color || "#374151";
+  const isActive =
+    pathname === href || (href !== "/" && pathname?.startsWith(href + "/"));
+
+  return (
+    <Link
+      href={href}
+      className="text-sm font-medium transition-colors duration-200"
+      style={{ color: isActive ? activeColor : inactiveColor }}
+    >
+      {label}
+    </Link>
+  );
+};
 
 export default Navbar;

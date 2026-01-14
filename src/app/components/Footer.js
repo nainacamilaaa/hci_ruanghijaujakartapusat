@@ -1,3 +1,4 @@
+
 import { FaInstagram, FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa";
 
 export default function Footer() {
@@ -33,18 +34,42 @@ export default function Footer() {
             </h3>
 
             <div className="flex md:justify-center gap-4">
-              <a className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
+              <a
+                href="https://www.instagram.com/rthjakartapusat/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition"
+              >
                 <FaInstagram size={14} />
               </a>
-              <a className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
+
+              <a
+                href="https://www.facebook.com/share/17yJGFiFM3/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition"
+              >
                 <FaFacebookF size={14} />
               </a>
-              <a className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
+
+              <a
+                href="https://x.com/Ruanghijau74997"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition"
+              >
                 <FaTwitter size={14} />
               </a>
-              <a className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
-                <FaYoutube size={14} />
-              </a>
+
+              <a
+              href="https://youtube.com/@rthjakartapusat?si=ZmbnYYXKkRFMVjzm"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition"
+              >
+  <FaYoutube size={14} />
+</a>
+
             </div>
 
             <p className="mt-4 text-sm text-white/70">
