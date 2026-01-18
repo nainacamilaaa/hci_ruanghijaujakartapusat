@@ -14,8 +14,8 @@ const eventData = [
     id: 2,
     title: "Ramadhan Jazz Festival 2026",
     desc: "Konser musik jazz religi di area terbuka menyambut bulan suci.",
-    date: "2026-03-07",
-    displayDate: "07-03-2026",
+    date: "2026-03-14",
+    displayDate: "14-03-2026",
     location: "Taman Menteng",
     image: "/icon/eventramadhanjazz.svg"
   },
@@ -71,7 +71,7 @@ const eventData = [
     date: "2026-09-12",
     displayDate: "12-09-2026",
     location: "Taman Ismail Marzuki",
-    image: "/icon/JIP.svg"
+    image: "/icon/JIPPP.svg"
   },
   {
     id: 9,
