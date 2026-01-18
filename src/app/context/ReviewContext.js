@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { createReview, fetchReviewsByPark, getReviewStats } from "../services/api";
 
 const ReviewContext = createContext();
@@ -9,9 +9,9 @@ export function ReviewProvider({ children }) {
   const [parkReviews, setParkReviews] = useState({});
   const [loadingReviews, setLoadingReviews] = useState({});
 
-  // Load reviews untuk park tertentu dari API
-  const loadReviews = async (parkId) => {
-    if (parkReviews[parkId] !== undefined) return; // Sudah di-load
+  // Wrap loadReviews dengan useCallback agar stabil
+  const loadReviews = useCallback(async (parkId, forceReload = false) => {
+    if (!forceReload && parkReviews[parkId] !== undefined) return;
     
     setLoadingReviews((prev) => ({ ...prev, [parkId]: true }));
     try {
@@ -37,15 +37,15 @@ export function ReviewProvider({ children }) {
     } finally {
       setLoadingReviews((prev) => ({ ...prev, [parkId]: false }));
     }
-  };
+  }, [parkReviews]);
 
   // Add review melalui API
   const addReview = async (parkId, name, rating, comment) => {
     try {
       const newReview = await createReview(parkId, name, rating, comment);
       if (newReview) {
-        // Reload reviews dari API untuk park ini
-        await loadReviews(parkId);
+        // Reload reviews dari API untuk park ini dengan force reload
+        await loadReviews(parkId, true);
         return true;
       }
       return false;

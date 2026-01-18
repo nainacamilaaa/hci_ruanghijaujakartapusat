@@ -23,10 +23,10 @@ export default function ParkDetailModal({ park, onClose }) {
 
   // Load reviews saat modal dibuka
   useEffect(() => {
-    if (park?.id) {
-      loadReviews(park.id);
-    }
-  }, [park?.id, loadReviews]);
+  if (park?.id) {
+    loadReviews(park.id);
+  }
+  }, [park?.id]); 
 
   const reviews = getReviews(park.id);
   const currentAverageRating = getAverageRating(park.id);
@@ -173,19 +173,19 @@ export default function ParkDetailModal({ park, onClose }) {
                 {reviews.length === 0 ? (
                   <p className="text-gray-500 text-sm">Belum ada ulasan. Jadilah yang pertama!</p>
                 ) : (
-                  reviews.map((review) => (
-                    <div key={review.id} className="bg-gray-50 rounded-lg p-4">
-                      <div className="flex items-start justify-between mb-2">
-                        <p className="font-semibold text-sm">{review.name}</p>
-                        <div className="flex text-yellow-400">
-                          {[...Array(review.rating)].map((_, i) => (
-                            <FaStar key={`review-${review.id}-star-${i}`} size={14} />
-                          ))}
-                        </div>
-                      </div>
-                      <p className="text-sm text-gray-700">{review.comment}</p>
-                    </div>
-                  ))
+                  reviews.map((review, index) => (
+  <div key={review._id || review.id || `review-${index}`} className="bg-gray-50 rounded-lg p-4">
+    <div className="flex items-start justify-between mb-2">
+      <p className="font-semibold text-sm">{review.name}</p>
+      <div className="flex text-yellow-400">
+        {[...Array(review.rating)].map((_, i) => (
+          <FaStar key={`star-${review._id || review.id || index}-${i}`} size={14} />
+        ))}
+      </div>
+    </div>
+    <p className="text-sm text-gray-700">{review.comment}</p>
+  </div>
+))
                 )}
               </div>
             </div>

@@ -75,3 +75,4 @@ export default function ParkGrid({ activeCategory, searchTerm, onSelect }) { // 
     </div>
   );
 }
+

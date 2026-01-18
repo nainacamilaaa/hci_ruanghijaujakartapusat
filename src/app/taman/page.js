@@ -70,8 +70,7 @@ function TamanContent() {
                 placeholder="Cari taman..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-full text-sm 
-                           focus:ring-2 focus:ring-green-500 focus:outline-none"
+                className="w-full px-4 py-2 border border-gray-300 rounded-full text-sm focus:ring-2 focus:ring-green-500 focus:outline-none"
               />
             </div>
           </div>
