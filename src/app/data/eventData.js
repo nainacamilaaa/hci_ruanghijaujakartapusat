@@ -6,7 +6,7 @@ const eventData = [
     title: "Festival Lampion Imlek Jakarta",
     desc: "Perayaan Tahun Baru Imlek dengan instalasi lampion raksasa dan pertunjukan barongsai.",
     date: "2026-02-19",
-    displayDate: "15-02-2026",
+    displayDate: "19-02-2026",
     location: "Lapangan Banteng",
     image: "/icon/eventimlek.svg"
   },
@@ -26,7 +26,7 @@ const eventData = [
     date: "2026-04-18",
     displayDate: "18-04-2026",
     location: "Taman Ismail Marzuki",
-    image: "/events/seni-tim.jpg"
+    image: "/icon/eventtamanismailmarzuki.svg"
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ const eventData = [
     date: "2026-05-24",
     displayDate: "24-05-2026",
     location: "Lapangan Banteng",
-    image: "/events/flona-2026.jpg"
+    image: "/icon/floradanfauna.svg"
   },
   {
     id: 5,
@@ -44,7 +44,7 @@ const eventData = [
     date: "2026-06-21",
     displayDate: "21-06-2026",
     location: "Monas",
-    image: "/events/hut-jakarta.jpg"
+    image: "/icon/malamudamudi.svg"
   },
   {
     id: 6,
@@ -53,7 +53,7 @@ const eventData = [
     date: "2026-07-12",
     displayDate: "12-07-2026",
     location: "Hutan Kota GBK",
-    image: "/events/green-creative.jpg"
+    image: "/icon/eventgreenfestival.svg"
   },
   {
     id: 7,
@@ -62,7 +62,7 @@ const eventData = [
     date: "2026-08-17",
     displayDate: "17-08-2026",
     location: "Monas",
-    image: "/events/merdeka-81.jpg"
+    image: "/icon/eventhutjakarta.svg"
   },
   {
     id: 8,
@@ -71,7 +71,7 @@ const eventData = [
     date: "2026-09-12",
     displayDate: "12-09-2026",
     location: "Taman Ismail Marzuki",
-    image: "/events/jipfest.jpg"
+    image: "/icon/JIP.svg"
   },
   {
     id: 9,
@@ -80,7 +80,7 @@ const eventData = [
     date: "2026-10-02",
     displayDate: "02-10-2026",
     location: "Lapangan Banteng",
-    image: "/events/batik-fest.jpg"
+    image: "/icon/batiknusantara.svg"
   },
   {
     id: 10,
@@ -89,7 +89,7 @@ const eventData = [
     date: "2026-10-28",
     displayDate: "28-10-2026",
     location: "Taman Menteng",
-    image: "/events/youth-fest.jpg"
+    image: "/icon/youthfest.svg"
   },
   {
     id: 11,
@@ -98,7 +98,7 @@ const eventData = [
     date: "2026-11-15",
     displayDate: "15-11-2026",
     location: "Taman Ismail Marzuki",
-    image: "/events/jilf-2026.jpg"
+    image: "/icon/JILF.svg"
   },
   {
     id: 12,
@@ -107,17 +107,8 @@ const eventData = [
     date: "2026-11-28",
     displayDate: "28-11-2026",
     location: "Hutan Kota GBK",
-    image: "/events/piknik-musik.jpg"
+    image: "icon/eventpiknik.svg"
   },
-  {
-    id: 13,
-    title: "Festival Taman Kota Jakarta",
-    desc: "Perayaan akhir tahun komunitas hijau dengan instalasi seni cahaya.",
-    date: "2026-12-19",
-    displayDate: "19-12-2026",
-    location: "Lapangan Banteng",
-    image: "/events/taman-fest.jpg"
-  }
 ];
 
 export default eventData;

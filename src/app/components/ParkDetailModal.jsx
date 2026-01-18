@@ -75,7 +75,7 @@ export default function ParkDetailModal({ park, onClose }) {
 
         {/* HEADER IMAGE */}
         <div className="relative h-80 w-full">
-          <img
+          <image
             src={park.image}
             alt={park.name}
             className="w-full h-full object-cover"
