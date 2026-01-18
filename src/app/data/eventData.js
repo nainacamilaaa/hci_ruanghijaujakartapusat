@@ -5,10 +5,10 @@ const eventData = [
     id: 1,
     title: "Festival Lampion Imlek Jakarta",
     desc: "Perayaan Tahun Baru Imlek dengan instalasi lampion raksasa dan pertunjukan barongsai.",
-    date: "2026-02-15",
+    date: "2026-02-19",
     displayDate: "15-02-2026",
     location: "Lapangan Banteng",
-    image: "/events/imlek-banteng.jpg"
+    image: "/icon/eventimlek.svg"
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const eventData = [
     date: "2026-03-07",
     displayDate: "07-03-2026",
     location: "Taman Menteng",
-    image: "/events/ramadhan-jazz.jpg"
+    image: "/icon/eventramadhanjazz.svg"
   },
   {
     id: 3,

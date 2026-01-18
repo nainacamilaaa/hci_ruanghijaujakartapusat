@@ -5,7 +5,7 @@ const eventDetails = {
     title: "Festival Lampion Imlek Jakarta",
     image: "/events/imlek-banteng.jpg",
     desc: "Merayakan Tahun Baru Imlek dengan instalasi lampion raksasa, barongsai, dan kuliner khas pecinan.",
-    dateRange: "15 - 17 Februari 2026",
+    dateRange: "19 - 20 Februari 2026",
     time: "17.00 - 22.00 WIB",
     location: "Lapangan Banteng",
     price: "Gratis",
