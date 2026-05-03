@@ -3,8 +3,12 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { Bookmark } from "lucide-react";
+import { useBookmark } from "@/app/hooks/useBookmark";
 
 const Navbar = () => {
+  const { bookmarks } = useBookmark();
+
   return (
     <nav className="bg-white shadow-sm fixed w-full z-50 top-0">
       {/* PERLEBAR CONTAINER */}
@@ -37,6 +41,22 @@ const Navbar = () => {
             <NavItem href="/taman" label="Taman" color="#374151" />
             <NavItem href="/aktivitas" label="Aktivitas" color="#374151" />
             <NavItem href="/tentang" label="Tentang" color="#374151" />
+
+            {/* Tombol Tersimpan dengan badge */}
+            <Link href="/tersimpan" className="relative">
+              <Bookmark
+                size={22}
+                className="text-gray-600 hover:text-[#15803D] transition-colors"
+              />
+              <span
+                suppressHydrationWarning
+                className={`absolute -top-1.5 -right-1.5 bg-green-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center transition-opacity ${
+                  bookmarks.length > 0 ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                {bookmarks.length > 9 ? "9+" : bookmarks.length || ""}
+              </span>
+            </Link>
           </div>
 
         </div>

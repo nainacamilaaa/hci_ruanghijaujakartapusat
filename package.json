@@ -9,8 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "lucide-react": "^0.555.0",
-    "next": "^16.1.1",
+    "mongoose": "^9.6.1",
+    "next": "^16.2.4",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-icons": "^5.5.0"

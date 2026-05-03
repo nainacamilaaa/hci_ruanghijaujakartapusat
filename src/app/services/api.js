@@ -144,3 +144,45 @@ export const fetchEventById = async (id) => {
     return null;
   }
 };
+
+// ============= BOOKMARKS API =============
+export const fetchBookmarks = async (sessionId) => {
+  try {
+    const response = await fetch(`${API_URL}/bookmarks/${sessionId}`);
+    if (!response.ok) throw new Error('Failed to fetch bookmarks');
+    const data = await response.json();
+    return data.data || [];
+  } catch (error) {
+    console.error('Error fetching bookmarks:', error);
+    return [];
+  }
+};
+
+export const addBookmark = async (sessionId, parkId) => {
+  try {
+    const response = await fetch(`${API_URL}/bookmarks`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId, parkId })
+    });
+    if (!response.ok) throw new Error('Failed to add bookmark');
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error('Error adding bookmark:', error);
+    return null;
+  }
+};
+
+export const removeBookmark = async (sessionId, parkId) => {
+  try {
+    const response = await fetch(`${API_URL}/bookmarks/${sessionId}/${parkId}`, {
+      method: 'DELETE'
+    });
+    if (!response.ok) throw new Error('Failed to remove bookmark');
+    return true;
+  } catch (error) {
+    console.error('Error removing bookmark:', error);
+    return false;
+  }
+};

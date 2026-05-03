@@ -1,10 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { MapPin } from "lucide-react";
+import { MapPin, Bookmark } from "lucide-react";
 import { FaStar } from "react-icons/fa";
+import { useBookmark } from "@/app/hooks/useBookmark";
 
 export default function ParkCard({ park, onSelect, rating = 0 }) {
+  const { toggleBookmark, isBookmarked } = useBookmark();
+  const bookmarked = isBookmarked(park.id);
+
   const categoryColors = {
     "Taman Kota": "bg-[#E8F1FF] text-[#2476FF]",
     "Hutan Kota": "bg-[#E9F7EE] text-[#2E8B57]",
@@ -57,12 +61,27 @@ export default function ParkCard({ park, onSelect, rating = 0 }) {
             {park.location}
           </div>
 
-          <button
-            onClick={() => onSelect(park.id)}
-            className="text-blue-700 font-medium hover:underline"
-          >
-            Lihat Detail
-          </button>
+          <div className="flex items-center gap-3">
+            {/* TOMBOL BOOKMARK */}
+            <button
+              onClick={() => toggleBookmark(park.id)}
+              title={bookmarked ? "Hapus bookmark" : "Simpan taman"}
+            >
+              <Bookmark
+                size={20}
+                className={bookmarked
+                  ? "fill-green-600 text-green-600"
+                  : "text-gray-400 hover:text-green-600 transition-colors"}
+              />
+            </button>
+
+            <button
+              onClick={() => onSelect(park.id)}
+              className="text-blue-700 font-medium hover:underline"
+            >
+              Lihat Detail
+            </button>
+          </div>
         </div>
       </div>
     </div>
