@@ -186,3 +186,79 @@ export const removeBookmark = async (sessionId, parkId) => {
     return false;
   }
 };
+
+// ============= AUTH API =============
+const getAuthHeader = () => {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('rhj_token') : null;
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
+
+export const googleLogin = async (credential) => {
+  try {
+    const response = await fetch(`${API_URL}/auth/google`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ credential })
+    });
+    if (!response.ok) throw new Error('Failed to login');
+    return await response.json();
+  } catch (error) {
+    console.error('Error during Google login:', error);
+    return null;
+  }
+};
+
+export const getMe = async () => {
+  try {
+    const response = await fetch(`${API_URL}/auth/me`, {
+      headers: { 'Content-Type': 'application/json', ...getAuthHeader() }
+    });
+    if (!response.ok) throw new Error('Failed to fetch user');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching current user:', error);
+    return null;
+  }
+};
+
+// ============= ADMIN API =============
+export const getAdminStats = async () => {
+  try {
+    const response = await fetch(`${API_URL}/admin/stats`, {
+      headers: { 'Content-Type': 'application/json', ...getAuthHeader() }
+    });
+    if (!response.ok) throw new Error('Failed to fetch admin stats');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching admin stats:', error);
+    return null;
+  }
+};
+
+export const getAdminUsers = async (page = 1, limit = 10) => {
+  try {
+    const response = await fetch(`${API_URL}/admin/users?page=${page}&limit=${limit}`, {
+      headers: { 'Content-Type': 'application/json', ...getAuthHeader() }
+    });
+    if (!response.ok) throw new Error('Failed to fetch users');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching admin users:', error);
+    return null;
+  }
+};
+
+export const updateUserRole = async (userId, role) => {
+  try {
+    const response = await fetch(`${API_URL}/admin/users/${userId}/role`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
+      body: JSON.stringify({ role })
+    });
+    if (!response.ok) throw new Error('Failed to update role');
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating user role:', error);
+    return null;
+  }
+};
