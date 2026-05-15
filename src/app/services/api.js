@@ -56,16 +56,16 @@ export const createReview = async (parkId, name, rating, comment) => {
     const response = await fetch(`${API_URL}/reviews`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...getAuthHeader(),
       },
-      body: JSON.stringify({
-        parkId,
-        name,
-        rating,
-        comment
-      })
+      body: JSON.stringify({ parkId, name, rating, comment }),
     });
-    if (!response.ok) throw new Error('Failed to create review');
+    if (!response.ok) {
+      const err = await response.json();
+      console.error('Review error:', err);
+      throw new Error('Failed to create review');
+    }
     const data = await response.json();
     return data.data;
   } catch (error) {
@@ -261,4 +261,27 @@ export const updateUserRole = async (userId, role) => {
     console.error('Error updating user role:', error);
     return null;
   }
+};
+
+
+
+export const uploadImage = async (file, folder = "general", token) => {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/upload?folder=${folder}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // Jangan tambah Content-Type di sini!
+      },
+      body: formData,
+    }
+  );
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Upload gagal");
+  return data.url;
 };

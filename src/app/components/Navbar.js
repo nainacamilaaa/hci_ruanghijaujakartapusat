@@ -1,25 +1,26 @@
 "use client";
+
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Bookmark, LogOut, User, ChevronDown } from "lucide-react";
+import { Bookmark, LogOut, User, ChevronDown, LayoutDashboard } from "lucide-react";
 import { useBookmark } from "@/app/hooks/useBookmark";
 import { useAuth } from "@/app/context/AuthContext";
+import { useToast } from "@/app/components/Toast";
 
 const Navbar = () => {
   const { bookmarks } = useBookmark();
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
+  const { showToast } = useToast();
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handler = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target))
         setDropdownOpen(false);
-      }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -28,6 +29,7 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     setDropdownOpen(false);
+    showToast("Berhasil keluar. Sampai jumpa! 👋", "info");
     router.push("/");
   };
 
@@ -39,18 +41,10 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-4">
             <div className="relative w-11 h-11">
-              <Image
-                src="/icon/Group34.svg"
-                alt="Logo Ruang Hijau"
-                fill
-                className="object-contain"
-                priority
-              />
+              <Image src="/icon/Group34.svg" alt="Logo Ruang Hijau" fill className="object-contain" priority />
             </div>
             <div className="leading-tight">
-              <h1 className="text-lg font-semibold text-[#15803D]">
-                Ruang Hijau Jakarta Pusat
-              </h1>
+              <h1 className="text-lg font-semibold text-[#15803D]">Ruang Hijau Jakarta Pusat</h1>
               <p className="text-xs text-gray-500 -mt-0.5">Jelajahi Taman Kota</p>
             </div>
           </Link>
@@ -94,39 +88,56 @@ const Navbar = () => {
                       <User size={16} className="text-green-700" />
                     </div>
                   )}
-                  <ChevronDown size={14} className="text-gray-500" />
+                  <ChevronDown
+                    size={14}
+                    className={`text-gray-500 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
+                  />
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 top-11 w-52 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
+                  <div className="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-50"
+                    style={{ animation: "fadeDown 0.2s ease forwards" }}>
+
                     {/* User info */}
-                    <div className="px-4 py-2 border-b border-gray-100">
+                    <div className="px-4 py-3 border-b border-gray-100">
                       <p className="text-sm font-semibold text-gray-800 truncate">{user?.name}</p>
-                      <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                      <p className="text-xs text-gray-400 truncate">{user?.email}</p>
                       {isAdmin && (
-                        <span className="inline-block mt-1 text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+                        <span className="inline-block mt-1.5 text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
                           Admin
                         </span>
                       )}
                     </div>
 
+                    <Link
+                      href="/profil"
+                      onClick={() => setDropdownOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition"
+                    >
+                      <User size={15} className="text-gray-400" />
+                      Profil Saya
+                    </Link>
+
                     {isAdmin && (
                       <Link
                         href="/admin"
                         onClick={() => setDropdownOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition"
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition"
                       >
-                        🛠️ Admin Panel
+                        <LayoutDashboard size={15} className="text-gray-400" />
+                        Admin Panel
                       </Link>
                     )}
 
-                    <button
-                      onClick={handleLogout}
-                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
-                    >
-                      <LogOut size={14} />
-                      Keluar
-                    </button>
+                    <div className="border-t border-gray-100 mt-1 pt-1">
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition"
+                      >
+                        <LogOut size={15} />
+                        Keluar
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
@@ -140,9 +151,15 @@ const Navbar = () => {
               </Link>
             )}
           </div>
-
         </div>
       </div>
+
+      <style jsx global>{`
+        @keyframes fadeDown {
+          from { opacity: 0; transform: translateY(-8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </nav>
   );
 };

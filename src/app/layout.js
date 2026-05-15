@@ -4,6 +4,8 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { ReviewProvider } from "@/app/context/ReviewContext";
 import { AuthProvider } from "@/app/context/AuthContext";
+import { ToastProvider } from "@/app/components/Toast";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,23 +20,17 @@ export default function RootLayout({ children }) {
       <head>
         <script src="https://accounts.google.com/gsi/client" async defer />
       </head>
-      <body
-        className={`${inter.className} antialiased bg-white overflow-x-hidden`}
-        suppressHydrationWarning
-      >
+      <body className={`${inter.className} antialiased bg-white overflow-x-hidden`} suppressHydrationWarning>
         <AuthProvider>
-          <ReviewProvider>
-            {/* NAVBAR */}
-            <Navbar />
-
-            {/* PAGE CONTENT */}
-            <div className="pt-20">
-              {children}
-            </div>
-
-            {/* FOOTER */}
-            <Footer />
-          </ReviewProvider>
+          <ToastProvider>
+            <ReviewProvider>
+              <Navbar />
+              <div className="pt-20">
+                {children}
+              </div>
+              <Footer />
+            </ReviewProvider>
+          </ToastProvider>
         </AuthProvider>
       </body>
     </html>

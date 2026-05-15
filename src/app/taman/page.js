@@ -7,6 +7,7 @@ import ParkGrid from "@/app/components/ParkGrid";
 import ParkDetailModal from "@/app/components/ParkDetailModal";
 import { parkDetails } from "@/app/data/parkDetails";
 import { parksData } from "@/app/data/parksData";
+import { fetchParks } from "@/app/services/api";
 
 // Pisahkan komponen yang menggunakan useSearchParams
 function TamanContent() {
@@ -26,11 +27,17 @@ function TamanContent() {
   const [selectedId, setSelectedId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const [parks, setParks] = useState([]);
+
+  useEffect(() => {
+    fetchParks().then(data => setParks(data));
+  }, []);
+
   const selectedPark = selectedId
     ? {
-        ...parkDetails[selectedId],
-        image: parksData.find((p) => p.id === selectedId)?.image,
-      }
+      ...parkDetails[selectedId],
+      ...parks.find((p) => String(p._id || p.id) === String(selectedId)),
+    }
     : null;
 
   return (
@@ -53,10 +60,9 @@ function TamanContent() {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition
-                    ${
-                      activeCategory === cat
-                        ? "bg-green-600 text-white shadow-sm"
-                        : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-100"
+                    ${activeCategory === cat
+                      ? "bg-green-600 text-white shadow-sm"
+                      : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-100"
                     }`}
                 >
                   {cat}

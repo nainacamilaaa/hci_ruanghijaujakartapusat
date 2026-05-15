@@ -17,6 +17,7 @@ app.use('/api/events', require('./routes/events'));
 app.use('/api/bookmarks', require('./routes/bookmarks'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api/upload', require('./routes/upload'));
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
