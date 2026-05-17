@@ -1,54 +1,34 @@
 "use client";
 
-import { useReducer, useEffect, useCallback } from "react";
-
-const STORAGE_KEY = "park_bookmarks";
-const BOOKMARK_EVENT = "bookmark-changed";
-
-function getStored() {
-  if (typeof window === "undefined") return [];
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : [];
-  } catch {
-    return [];
-  }
-}
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "SET":
-      return action.payload;
-    case "TOGGLE": {
-      const updated = state.includes(action.parkId)
-        ? state.filter((id) => id !== action.parkId)
-        : [...state, action.parkId];
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-      window.dispatchEvent(new Event(BOOKMARK_EVENT));
-      return updated;
-    }
-    default:
-      return state;
-  }
-}
+import { useState, useEffect, useCallback } from "react";
+import { fetchBookmarks, addBookmark, removeBookmark } from "@/app/services/api";
+import { useAuth } from "@/app/context/AuthContext";
 
 export function useBookmark() {
-  const [bookmarks, dispatch] = useReducer(reducer, []);
+  const { isAuthenticated } = useAuth();
+  const [bookmarks, setBookmarks] = useState([]);
 
   useEffect(() => {
-    dispatch({ type: "SET", payload: getStored() });
+    if (!isAuthenticated) {
+      setBookmarks([]);
+      return;
+    }
+    fetchBookmarks().then(setBookmarks);
+  }, [isAuthenticated]);
 
-    const handler = () => dispatch({ type: "SET", payload: getStored() });
-    window.addEventListener(BOOKMARK_EVENT, handler);
-    return () => window.removeEventListener(BOOKMARK_EVENT, handler);
-  }, []);
-
-  const toggleBookmark = useCallback((parkId) => {
-    dispatch({ type: "TOGGLE", parkId });
-  }, []);
+  const toggleBookmark = useCallback(async (parkId) => {
+    const id = String(parkId);
+    if (bookmarks.includes(id)) {
+      setBookmarks(prev => prev.filter(b => b !== id));
+      await removeBookmark(id);
+    } else {
+      setBookmarks(prev => [...prev, id]);
+      await addBookmark(id);
+    }
+  }, [bookmarks]);
 
   const isBookmarked = useCallback(
-    (parkId) => bookmarks.includes(parkId),
+    (parkId) => bookmarks.includes(String(parkId)),
     [bookmarks]
   );
 

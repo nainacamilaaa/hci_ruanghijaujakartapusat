@@ -28,9 +28,14 @@ export default function TersimpanPage() {
     load();
   }, []);
 
-  const savedParks = allParks.filter((p) => bookmarks.includes(p.id));
-  const selectedPark = selectedId
-    ? { ...parkDetails[selectedId], image: allParks.find((p) => p.id === selectedId)?.image }
+  const savedParks = allParks.filter((p) => bookmarks.includes(String(p._id || p.id))); const selectedPark = selectedId
+    ? (() => {
+      const apiPark = allParks.find((p) => String(p._id || p.id) === String(selectedId));
+      const detailEntry = Object.values(parkDetails).find(
+        (d) => d.name === apiPark?.name
+      );
+      return { ...detailEntry, ...apiPark };
+    })()
     : null;
   const isLoading = authLoading || bookmarkLoading || parksLoading;
 

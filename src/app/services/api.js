@@ -144,44 +144,42 @@ export const fetchEventById = async (id) => {
   }
 };
 
-// ============= BOOKMARKS API =============
-export const fetchBookmarks = async (sessionId) => {
+export const fetchBookmarks = async () => {
   try {
-    const response = await fetch(`${API_URL}/bookmarks/${sessionId}`);
-    if (!response.ok) throw new Error('Failed to fetch bookmarks');
+    const response = await fetch(`${API_URL}/bookmarks`, {
+      headers: { ...getAuthHeader() }
+    });
+    if (!response.ok) return [];
     const data = await response.json();
     return data.data || [];
-  } catch (error) {
-    console.error('Error fetching bookmarks:', error);
+  } catch {
     return [];
   }
 };
 
-export const addBookmark = async (sessionId, parkId) => {
+export const addBookmark = async (parkId) => {
   try {
     const response = await fetch(`${API_URL}/bookmarks`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sessionId, parkId })
+      headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
+      body: JSON.stringify({ parkId })
     });
-    if (!response.ok) throw new Error('Failed to add bookmark');
-    const data = await response.json();
-    return data.data;
-  } catch (error) {
-    console.error('Error adding bookmark:', error);
-    return null;
+    if (!response.ok) return false;
+    return true;
+  } catch {
+    return false;
   }
 };
 
-export const removeBookmark = async (sessionId, parkId) => {
+export const removeBookmark = async (parkId) => {
   try {
-    const response = await fetch(`${API_URL}/bookmarks/${sessionId}/${parkId}`, {
-      method: 'DELETE'
+    const response = await fetch(`${API_URL}/bookmarks/${parkId}`, {
+      method: 'DELETE',
+      headers: { ...getAuthHeader() }
     });
-    if (!response.ok) throw new Error('Failed to remove bookmark');
+    if (!response.ok) return false;
     return true;
-  } catch (error) {
-    console.error('Error removing bookmark:', error);
+  } catch {
     return false;
   }
 };
